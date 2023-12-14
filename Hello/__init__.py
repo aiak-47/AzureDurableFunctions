@@ -10,8 +10,13 @@
 
 import logging
 
-def main(data: str) -> str:
-    # Access JSON data in the activity function
-    name = data
-    # print("---name---"*100, name)
-    return f"Hello {name}"
+def main(input):
+    # # Access JSON data in the activity function
+    # name = data
+    # # print("---name---"*100, name)
+    # return f"Hello {name}"
+    logging.info(f"Received data : {input}")
+
+    # Process the received Json data over here if required
+
+    return "Victory!!!"

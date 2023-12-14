@@ -15,7 +15,7 @@ import azure.durable_functions as df
 
 def orchestrator_function(context: df.DurableOrchestrationContext):
     # Extracting JSON data from the request
-    data = context.get_input()
+    data = context.get_input()  # Receive input data from http trigger
 
     # Call activity function with JSON data
     result = yield context.call_activity('Hello', data)
