@@ -6,20 +6,47 @@
 # - add azure-functions-durable to requirements.txt
 # - run pip install -r requirements.txt
 
-# Updated OrchestratorFunction/__init__.py
-
 import logging
 import json
+
 import azure.functions as func
 import azure.durable_functions as df
 
-def orchestrator_function(context: df.DurableOrchestrationContext):
-    # Extracting JSON data from the request
-    data = context.get_input()  # Receive input data from http trigger
+from azure.storage.blob import BlobServiceClient
 
-    # Call activity function with JSON data
-    result = yield context.call_activity('Hello', data)
-    
-    return result
+
+
+def orchestrator_function(context: df.DurableOrchestrationContext):
+    # data = {"key" : "Successful try"}
+    # path = open("C:/Users/hammad.mukhtar/Desktop/wifi_analytics/final_json_v1s.json")
+
+    # Azure Storage account connection string
+    connection_string = "DefaultEndpointsProtocol=https;AccountName=kismetqueue;AccountKey=ABw0pXQK90g//iAJc31JoXXUQpcjDtj3Dy8vYQ0B925Ij5T+UReeuYkMIzXjRVa5iMttslthpI7c+AStNKe23g==;EndpointSuffix=core.windows.net"
+
+    # Create BlobServiceClient
+    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+
+    # Name of the container where the JSON file is stored
+    container_name = "files"
+
+    # Name of the JSON file you want to read
+    blob_name = "final_json_v1s.json"
+
+    # Get a reference to the container
+    container_client = blob_service_client.get_container_client(container_name)
+
+    # Get a reference to the blob (file) in the container
+    blob_client = container_client.get_blob_client(blob_name)
+
+    # Download the content of the blob (file)
+    blob_data = blob_client.download_blob()
+
+    # Read the content of the blob (file)
+    data = blob_data.readall().decode('utf-8')
+    # data = json.load(path)
+    result1 = yield context.call_activity('Hello', data)
+    result2 = yield context.call_activity('Hello', "Seattle")
+    result3 = yield context.call_activity('Hello', "London")
+    return [result1, result2, result3]
 
 main = df.Orchestrator.create(orchestrator_function)

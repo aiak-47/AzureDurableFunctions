@@ -6,17 +6,8 @@
 # - add azure-functions-durable to requirements.txt
 # - run pip install -r requirements.txt
 
-# Updated Hello/__init__.py
-
 import logging
 
-def main(input):
-    # # Access JSON data in the activity function
-    # name = data
-    # # print("---name---"*100, name)
-    # return f"Hello {name}"
-    logging.info(f"Received data : {input}")
 
-    # Process the received Json data over here if required
-
-    return "Victory!!!"
+def main(name: str) -> str:
+    return f"{name}!"
