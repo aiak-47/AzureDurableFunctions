@@ -21,8 +21,7 @@ def orchestrator_function(context: df.DurableOrchestrationContext):
     # path = open("C:/Users/hammad.mukhtar/Desktop/wifi_analytics/final_json_v1s.json")
 
     # Azure Storage account connection string
-    connection_string = "DefaultEndpointsProtocol=https;AccountName=kismetqueue;AccountKey=ABw0pXQK90g//iAJc31JoXXUQpcjDtj3Dy8vYQ0B925Ij5T+UReeuYkMIzXjRVa5iMttslthpI7c+AStNKe23g==;EndpointSuffix=core.windows.net"
-
+    connection_string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     # Create BlobServiceClient
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
